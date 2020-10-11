@@ -9,7 +9,7 @@ prefix operator /
 public prefix func / <Root, Value>(
   embed: @escaping (Value) -> Root
 ) -> CasePath<Root, Value> {
-  .case(embed)
+    return .case(embed)
 }
 
 /// Returns a void case path for a case with no associated value.
@@ -21,7 +21,7 @@ public prefix func / <Root, Value>(
 public prefix func / <Root>(
   root: Root
 ) -> CasePath<Root, Void> {
-  .case(root)
+  return .case(root)
 }
 
 /// Returns the identity case path for the given type. Enables `/MyType.self` syntax.
@@ -31,7 +31,7 @@ public prefix func / <Root>(
 public prefix func / <Root>(
   type: Root.Type
 ) -> CasePath<Root, Root> {
-  .self
+  return .self
 }
 
 /// Identifies and returns a given case path. Enables shorthand syntax on static case paths, _e.g._
@@ -42,7 +42,7 @@ public prefix func / <Root>(
 public prefix func / <Root>(
   type: CasePath<Root, Root>
 ) -> CasePath<Root, Root> {
-  .self
+  return .self
 }
 
 /// Returns a function that can attempt to extract associated values from the given enum case
@@ -62,7 +62,7 @@ public prefix func / <Root>(
 public prefix func / <Root, Value>(
   case: @escaping (Value) -> Root
 ) -> (Root) -> Value? {
-  extract(`case`)
+  return extract(`case`)
 }
 
 /// Returns a void case path for a case with no associated value.
@@ -74,7 +74,7 @@ public prefix func / <Root, Value>(
 public prefix func / <Root>(
   root: Root
 ) -> (Root) -> Void? {
-  (/root).extract
+  return (/root).extract
 }
 
 precedencegroup CasePathCompositionPrecedence {
@@ -110,7 +110,7 @@ extension CasePath {
     lhs: CasePath,
     rhs: @escaping (AppendedValue) -> Value
   ) -> CasePath<Root, AppendedValue> {
-    lhs.appending(path: .case(rhs))
+    return lhs.appending(path: .case(rhs))
   }
 }
 

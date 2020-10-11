@@ -46,7 +46,7 @@ extension CasePath where Value == Void {
 ///   - root: A root enum value.
 /// - Returns: Values iff they can be extracted from the given enum case initializer and root enum,
 ///   otherwise `nil`.
-public func extract<Root, Value>(case embed: (Value) -> Root, from root: Root) -> Value? {
+public func extract<Root, Value>(case embed: @escaping (Value) -> Root, from root: Root) -> Value? {
   func extractHelp(from root: Root) -> ([String?], Value)? {
     if let value = root as? Value {
       var otherRoot = embed(value)
@@ -114,7 +114,7 @@ private struct EnumTypeDescriptor {
   let numEmptyCases: Int32
   
   var numPayloadCases: Int32 {
-    numPayloadCasesAndPayloadSizeOffset & 0xFFFFFF
+    return numPayloadCasesAndPayloadSizeOffset & 0xFFFFFF
   }
 }
 

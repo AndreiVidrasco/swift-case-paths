@@ -21,7 +21,7 @@ public struct CasePath<Root, Value> {
   /// - Parameter value: A value to embed.
   /// - Returns: A root that embeds `value`.
   public func embed(_ value: Value) -> Root {
-    self._embed(value)
+    return self._embed(value)
   }
 
   /// Attempts to extract a value from a root.
@@ -29,7 +29,7 @@ public struct CasePath<Root, Value> {
   /// - Parameter root: A root to extract from.
   /// - Returns: A value iff it can be extracted from the given root, otherwise `nil`.
   public func extract(from root: Root) -> Value? {
-    self._extract(root)
+    return self._extract(root)
   }
 
   /// Returns a new case path created by appending the given case path to this one.
@@ -41,7 +41,7 @@ public struct CasePath<Root, Value> {
   public func appending<AppendedValue>(path: CasePath<Value, AppendedValue>) -> CasePath<
     Root, AppendedValue
   > {
-    CasePath<Root, AppendedValue>(
+    return CasePath<Root, AppendedValue>(
       embed: { self.embed(path.embed($0)) },
       extract: { self.extract(from: $0).flatMap(path.extract) }
     )
